@@ -1,0 +1,13 @@
+Description:
+    Generate a migration file for a specific Model using DynamicFields
+
+Usage:
+    Pass the name of the Model using DynamicFields, either CamelCased or under_scored
+
+Examples:
+    rails generate dynamic_fields:migration Post
+        
+        If the Post model has no table yet, will create a migration called "create_posts"
+        containing a create_table migration. However, if the Post model already has a table, 
+        will create a migration called "update_posts" containing all the add_column and 
+        remove_column migrations.
