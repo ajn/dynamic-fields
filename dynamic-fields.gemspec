@@ -9,11 +9,13 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Alex Neill"]
-  s.date = %q{2010-06-14}
+  s.date = %q{2010-06-16}
   s.description = %q{Allows for automatic migrations with ActiveRecord}
   s.email = %q{alex@featureless.co.uk}
   s.files = [
     "lib/dynamic_fields.rb",
+     "lib/dynamic_fields/field.rb",
+     "lib/dynamic_fields/fields.rb",
      "lib/dynamic_fields/migration_generator.rb",
      "lib/dynamic_fields/railtie.rb",
      "lib/generators/dynamic_fields/migration/USAGE",
