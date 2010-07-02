@@ -13,15 +13,19 @@ module DynamicFields
     end
     
     protected
-      attr_reader :migration_action, :migration_klass, :table_name, :attributes, :migration_name
+      attr_reader :migration_action, :migration_klass, :table_name, :attributes, :indices, :migration_name
       
       def parse_attributes! #:nodoc:
         if migration_action == 'create'
           @attributes = migration_klass.new_fields
+          @indices    = migration_klass.new_indices
         else
           @attributes           = {}
           @attributes[:add]     = migration_klass.new_fields
           @attributes[:remove]  = migration_klass.old_fields
+          @indices              = {}
+          @indices[:add]        = migration_klass.new_indices
+          @indices[:remove]     = migration_klass.old_indices
         end
       end
 

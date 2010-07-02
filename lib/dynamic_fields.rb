@@ -16,5 +16,6 @@ module DynamicFields
 end
 
 require 'dynamic_fields/field'
+require 'dynamic_fields/index'
 require 'dynamic_fields/fields'
 require 'dynamic_fields/railtie'
