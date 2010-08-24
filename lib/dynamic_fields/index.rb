@@ -14,7 +14,7 @@ module DynamicFields
     end
     
     def to_s
-      name
+      name.to_s
     end
     
     def unique?
@@ -26,11 +26,10 @@ module DynamicFields
       case action = action.to_sym
       when :add
         args << (fields.is_a?(Array) ? fields : fields.to_sym).inspect
-        args << ":name => #{name.inspect}" if fields.is_a?(Array)
+        args << ":name => #{to_s.inspect}"
         args << ":unique => true" if unique?
       when :remove
-        args << fields.to_sym.inspect unless fields.is_a?(Array)
-        args << ":name => #{name.to_sym.inspect}" if fields.is_a?(Array)
+        args << ":name => #{to_s.inspect}"
       end
       args.join(', ').gsub('\\', '')
     end
