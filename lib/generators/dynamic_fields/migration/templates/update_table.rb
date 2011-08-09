@@ -1,15 +1,25 @@
 class <%= migration_class_name %> < ActiveRecord::Migration
-  def self.up<% attributes.each do |action, attrs| %><% attrs.each do |attribute| %>
-    <%= action %>_column :<%= table_name %>, <%= attribute.migration_string_for :update, action %><% end -%>
-  <% end %><% indices.each do |action, idxs| %><% idxs.each do |index| %>
-    <%= action %>_index :<%= table_name %>, <%= index.migration_string_for :update, action %><% end -%>
-  <% end %>
+  def self.up
+<%- attributes[:add].each do |attribute| -%>
+    add_column :<%= table_name %>, <%= attribute.migration_string_for :update, :add %>
+<%- end -%><%- indices[:add].each do |index| -%>
+    add_index :<%= table_name %>, <%= index.migration_string_for :update, :add %>
+<%- end -%><%- indices[:remove].each do |index| -%>
+    remove_index :<%= table_name %>, <%= index.migration_string_for :update, :remove %>
+<%- end -%><%- attributes[:remove].each do |attribute| -%>
+    remove_column :<%= table_name %>, <%= attribute.migration_string_for :update, :remove %>
+<%- end -%>
   end
 
-  def self.down<% indices.each do |action, idxs| %><% idxs.each do |index| %>
-    <%= action == :add ? 'remove' : 'add' %>_index :<%= table_name %>, <%= index.migration_string_for(:update, action == :add ? :remove : :add ) %><% end -%>
-  <% end %><% attributes.each do |action, attrs| %><% attrs.reverse.each do |attribute| %>
-    <%= action == :add ? 'remove' : 'add' %>_column :<%= table_name %>, <%= attribute.migration_string_for(:update, action == :add ? :remove : :add ) %><% end -%>
-  <% end %>
+  def self.down
+<%- indices[:add].reverse.each do |index| -%>
+    remove_index :<%= table_name %>, <%= index.migration_string_for :update, :remove %>
+<%- end -%><%- attributes[:add].reverse.each do |attribute| -%>
+    remove_column :<%= table_name %>, <%= attribute.migration_string_for :update, :remove %>
+<%- end -%><%- attributes[:remove].reverse.each do |attribute| -%>
+    add_column :<%= table_name %>, <%= attribute.migration_string_for :update, :add %>
+<%- end -%><%- indices[:remove].reverse.each do |index| -%>
+    add_index :<%= table_name %>, <%= index.migration_string_for :update, :add %>
+<%- end -%>
   end
 end

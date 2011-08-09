@@ -1,3 +1,4 @@
+require 'dynamic_fields'
 require 'dynamic_fields/migration_generator'
 
 namespace :dynamic_fields do
@@ -42,7 +43,7 @@ def generate_migration_for(klass)
   return unless klass.name.present? # no annoymous classes
   if klass.requires_migration?
     puts "Generating a migration for #{klass.name}"
-    DynamicFields::MigrationGenerator.start klass.name
+    DynamicFields::MigrationGenerator.start [klass.name]
   else
     puts "#{klass.name} is up to date!"
   end

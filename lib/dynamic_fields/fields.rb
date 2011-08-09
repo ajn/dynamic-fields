@@ -50,7 +50,7 @@ module DynamicFields
       
       # Any fields which have not been add to the table
       def new_fields
-        fields.reject {|f| real_field_names.include?(f.name.to_s) }
+        (self.fields ||= []).reject {|f| real_field_names.include?(f.name.to_s) }
       end
       
       # Any fields in the table, but not in the model
@@ -101,7 +101,7 @@ module DynamicFields
       
       # Any indicies which have not been add to the table
       def new_indices
-        indices.reject { |idx| real_index_ids.include?(idx.id) }
+        (self.indices ||= []).reject { |idx| real_index_ids.include?(idx.id) }
       end
       
       # Any indices in the table, but not in the model
